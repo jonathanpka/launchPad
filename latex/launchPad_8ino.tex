@@ -1,0 +1,354 @@
+\hypertarget{launchPad_8ino}{\section{launch\-Pad.\-ino \-File \-Reference}
+\label{launchPad_8ino}\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}}
+}
+
+
+\-Sketch for the \-Compressed \-Air \-Rocket \-Launch \-Pad.  
+
+
+{\ttfamily \#include $<$\-Arduino.\-h$>$}\*
+{\ttfamily \#include $<$stdint.\-h$>$}\*
+{\ttfamily \#include $<$\-Wire.\-h$>$}\*
+{\ttfamily \#include $<$\-X\-Bee.\-h$>$}\*
+{\ttfamily \#include $<$\-Launch\-Data\-Packet.\-h$>$}\*
+\subsection*{\-Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{launchPad_8ino_a1a373dcba7ddfc401b86cb5ae2c3d0f6}{\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-}~1
+\begin{DoxyCompactList}\small\item\em \-Define the \-Digital \-Input \# for the safety \-L\-E\-D. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a5be4de8c40301fb984c38e8aa1c505fe}{\-\_\-\-Safety\-Led\-Port\-\_\-}~\-P\-O\-R\-T\-D
+\item 
+\#define \hyperlink{launchPad_8ino_a6aeae67497fe7befb28722f8356e5956}{\-\_\-\-Safety\-Led\-Bit\-\_\-}~1
+\begin{DoxyCompactList}\small\item\em \-Define the \-Port \-Bit \# for the safety \-L\-E\-D. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_afff5f53ef0f1c562a5dce2243aef6c53}{\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-}~2
+\begin{DoxyCompactList}\small\item\em \-Define the \-Digital \-Pin \# for the \-Error \-L\-E\-D. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_affac57d4321e3e0a2ffd81bce3d8ac87}{\-\_\-\-Error\-Led\-Port\-\_\-}~\-P\-O\-R\-T\-D
+\begin{DoxyCompactList}\small\item\em \-Define the \-Digital \-Port the \-Error \-L\-E\-D is connected to. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a5504a284db73f254a1d5871844f6987c}{\-\_\-\-Error\-Led\-Bit\-\_\-}~2
+\begin{DoxyCompactList}\small\item\em \-Define the \-Port \-Bit \# for the \-Error \-L\-E\-D. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a440c530b55261878002ddb81888a0f6f}{\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a668c5ec668626e8f7ad9bfc2be75fa24}{\-\_\-\-Pad1\-Launch\-Port\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a279a53b87a4dd94178c6353f1138145e}{\-\_\-\-Pad1\-Launch\-Bit\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_ac493d18a8ca788748c821e47f11bc23f}{\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_af3068802cd6f1921c6f2926b3ea99689}{\-\_\-\-Pad2\-Launch\-Port\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a5f31e10821954e78c91273154a01a9c1}{\-\_\-\-Pad2\-Launch\-Bit\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a71f8d37be468b0d370427fea6df0c737}{\-\_\-\-Compressor\-Bit\-Mode\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a60fea168d2c06a57a10f542ba5329af5}{\-\_\-\-Compressor\-Port\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_abfe6a39ff27c8d82ff6490d3226dcb7c}{\-\_\-\-Compressor\-Bit\-\_\-}
+\item 
+\#define \hyperlink{launchPad_8ino_a8dba5b7b5c1c1a33fdda248174d889bd}{\-\_\-\-Pressure1\-Analog\-\_\-}~1
+\begin{DoxyCompactList}\small\item\em \-Define the \-Analog \-Input \# for the pressure sensor in \-Chamber \#1. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a4ab75fa969597ccee16103613f86127b}{\-\_\-\-Pressure2\-Analog\-\_\-}~2
+\begin{DoxyCompactList}\small\item\em \-Define the \-Analog \-Input \# for the pressure sensor in \-Chamber \#2. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a9a8dc8e6e75e845a90d783b02b6be855}{\-\_\-pulse\-\_\-halfwidth\-\_\-}~100
+\begin{DoxyCompactList}\small\item\em \-Define the 1/2 period of the pulse used to flash the \-L\-E\-D in the launch button. \end{DoxyCompactList}\item 
+\#define \hyperlink{launchPad_8ino_a6b982ea9a4c912acbfd98bbd5072e258}{\-\_\-zigbee\-\_\-timeout\-\_\-}~1000
+\begin{DoxyCompactList}\small\item\em \-Define the timeout for the zigbee communications. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{launchPad_8ino_aa6ea37e78ab121d0e64b0184ed4a3e7c}{set\-Safety\-Led\-State} (boolean state)
+\begin{DoxyCompactList}\small\item\em \-Supplies power to the \-Safety \-L\-E\-D. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a846b4e1765d547fb0bc878b1ae00f1d1}{set\-Error\-Led\-State} (boolean state)
+\begin{DoxyCompactList}\small\item\em \-Supplies power to the \-Error \-L\-E\-D. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_aa52415de65bdd171ce3eefcf2439d5bb}{read\-Zigbee} ()
+\begin{DoxyCompactList}\small\item\em \-Checks if there is data waiting in the \-Zigbee. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a9ad71d5a59d49ba8ccdb3d533e9324d1}{write\-Zigbee\-Master} ()
+\begin{DoxyCompactList}\small\item\em \-Reads the current pressures, updates the data appropriate for the \-Launch \-Pad and sends a data packet to the \-Master \-Controller via \-Zigbee. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a6ff0831bdafcf179423ba9adaa1f5fad}{blink\-Error\-Led} ()
+\begin{DoxyCompactList}\small\item\em \-Toggles the on/off state of the \-Error \-L\-E\-D bit. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_aeba3f10803047fcba38d033c747a11c7}{blink\-Safety\-Led} ()
+\begin{DoxyCompactList}\small\item\em \-Toggles the on/off state of the \-Error \-L\-E\-D bit. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a97912ba0e56e077f6841f7a8f9349df1}{read\-Pressure} ()
+\begin{DoxyCompactList}\small\item\em \-Reads the pressure as an uncalibrated value from the \-A\-D\-C. \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a891f6d0bdccb9622acbd6ecf0d825a73}{launch\-Rocket} ()
+\begin{DoxyCompactList}\small\item\em \-Launch the rocket(s). \end{DoxyCompactList}\item 
+void \hyperlink{launchPad_8ino_a389fed96244d8611aad3f0000e947be4}{update\-Data} ()
+\begin{DoxyCompactList}\small\item\em \-Reads the pressure of the chambers and writes the data do the \-Launch\-Data\-Packet instance, checks for communication errors, reads \-Zigbee commands into the \-Launch\-Data\-Packet instance, controls the air compressor status, launches rockets, and sends the \-Launch\-Data\-Packet instance over \-Zigbee. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{\-Variables}
+\begin{DoxyCompactItemize}
+\item 
+boolean \hyperlink{launchPad_8ino_a5583bd11885b1c22517a2478981867ca}{pulse} = \-F\-A\-L\-S\-E
+\begin{DoxyCompactList}\small\item\em \-Track the on/off state of the launch button \-L\-E\-D when the \-L\-E\-D is flashing. \end{DoxyCompactList}\item 
+long \hyperlink{launchPad_8ino_af8d9d76d18b6aee4b209d4f3b9f2d8d3}{time\-Since\-Last\-Pulse} = 0
+\begin{DoxyCompactList}\small\item\em \-Time since the last toggle of the \-L\-E\-D on/off status. \end{DoxyCompactList}\item 
+long \hyperlink{launchPad_8ino_a7b1a52e134926e2cf15a07a282da0357}{time\-Since\-Last\-Master\-Signal} = 0
+\begin{DoxyCompactList}\small\item\em \-Time since the last good \-Zigbee communication with the \-Master \-Panel. \end{DoxyCompactList}\item 
+boolean \hyperlink{launchPad_8ino_af8ca6213dcf51fb6a3a9453c59099449}{was\-Rocket\-Launched} = false
+\begin{DoxyCompactList}\small\item\em \-Was a \-Rocket \-Launch \-Command given in the last \-Zigbee communications received. \end{DoxyCompactList}\item 
+\-X\-Bee \hyperlink{launchPad_8ino_a18bbd7dece9ef587254b08710426fd17}{xbee} = \-X\-Bee()
+\begin{DoxyCompactList}\small\item\em \-Instance of the \-Zigbee \-Class. \end{DoxyCompactList}\item 
+\-Launch\-Data\-Packet \hyperlink{launchPad_8ino_a2581ee7316bbd0b2c1f26d7892d9383b}{data} = \-Launch\-Data\-Packet(\hyperlink{launchPad_8ino_a18bbd7dece9ef587254b08710426fd17}{xbee})
+\begin{DoxyCompactList}\small\item\em \-Instance of the \-Launch\-Data\-Packet \-Class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Sketch for the \-Compressed \-Air \-Rocket \-Launch \-Pad. \-This sketch monitors the communications with the \-Master \-Panel using \-Zigbee, reads air pressure in the \-P\-V\-C chambers, controls the \-Air \-Compressor, and controlls the air valves to launch the rockets. \begin{DoxySeeAlso}{\-See also}
+\-Launch\-Pad\-Packet.\-h 
+\end{DoxySeeAlso}
+
+
+\subsection{\-Define \-Documentation}
+\hypertarget{launchPad_8ino_abfe6a39ff27c8d82ff6490d3226dcb7c}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Compressor\-Bit\-\_\-@{\-\_\-\-Compressor\-Bit\-\_\-}}
+\index{\-\_\-\-Compressor\-Bit\-\_\-@{\-\_\-\-Compressor\-Bit\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Compressor\-Bit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Compressor\-Bit\-\_\-}}}\label{launchPad_8ino_abfe6a39ff27c8d82ff6490d3226dcb7c}
+\hypertarget{launchPad_8ino_a71f8d37be468b0d370427fea6df0c737}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Compressor\-Bit\-Mode\-\_\-@{\-\_\-\-Compressor\-Bit\-Mode\-\_\-}}
+\index{\-\_\-\-Compressor\-Bit\-Mode\-\_\-@{\-\_\-\-Compressor\-Bit\-Mode\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Compressor\-Bit\-Mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Compressor\-Bit\-Mode\-\_\-}}}\label{launchPad_8ino_a71f8d37be468b0d370427fea6df0c737}
+\hypertarget{launchPad_8ino_a60fea168d2c06a57a10f542ba5329af5}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Compressor\-Port\-\_\-@{\-\_\-\-Compressor\-Port\-\_\-}}
+\index{\-\_\-\-Compressor\-Port\-\_\-@{\-\_\-\-Compressor\-Port\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Compressor\-Port\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Compressor\-Port\-\_\-}}}\label{launchPad_8ino_a60fea168d2c06a57a10f542ba5329af5}
+\hypertarget{launchPad_8ino_a5504a284db73f254a1d5871844f6987c}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Error\-Led\-Bit\-\_\-@{\-\_\-\-Error\-Led\-Bit\-\_\-}}
+\index{\-\_\-\-Error\-Led\-Bit\-\_\-@{\-\_\-\-Error\-Led\-Bit\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Error\-Led\-Bit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Error\-Led\-Bit\-\_\-}~2}}\label{launchPad_8ino_a5504a284db73f254a1d5871844f6987c}
+
+
+\-Define the \-Port \-Bit \# for the \-Error \-L\-E\-D. 
+
+\-In \-Port \-D, the \-Port \-Bit \# is equal to the \-Digital \-Pin \#. \-In \-Port \-B, the \-Port \-Bit \# is equal to the \-Digital \-Pin \# minus 8. \hypertarget{launchPad_8ino_afff5f53ef0f1c562a5dce2243aef6c53}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-@{\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-}}
+\index{\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-@{\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Error\-Led\-Bit\-Mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Error\-Led\-Bit\-Mode\-\_\-}~2}}\label{launchPad_8ino_afff5f53ef0f1c562a5dce2243aef6c53}
+
+
+\-Define the \-Digital \-Pin \# for the \-Error \-L\-E\-D. 
+
+\-L\-E\-D will flash when there is a communication error. \hypertarget{launchPad_8ino_affac57d4321e3e0a2ffd81bce3d8ac87}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Error\-Led\-Port\-\_\-@{\-\_\-\-Error\-Led\-Port\-\_\-}}
+\index{\-\_\-\-Error\-Led\-Port\-\_\-@{\-\_\-\-Error\-Led\-Port\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Error\-Led\-Port\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Error\-Led\-Port\-\_\-}~\-P\-O\-R\-T\-D}}\label{launchPad_8ino_affac57d4321e3e0a2ffd81bce3d8ac87}
+
+
+\-Define the \-Digital \-Port the \-Error \-L\-E\-D is connected to. 
+
+\hypertarget{launchPad_8ino_a279a53b87a4dd94178c6353f1138145e}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad1\-Launch\-Bit\-\_\-@{\-\_\-\-Pad1\-Launch\-Bit\-\_\-}}
+\index{\-\_\-\-Pad1\-Launch\-Bit\-\_\-@{\-\_\-\-Pad1\-Launch\-Bit\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad1\-Launch\-Bit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad1\-Launch\-Bit\-\_\-}}}\label{launchPad_8ino_a279a53b87a4dd94178c6353f1138145e}
+\hypertarget{launchPad_8ino_a440c530b55261878002ddb81888a0f6f}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-@{\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-}}
+\index{\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-@{\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad1\-Launch\-Bit\-Mode\-\_\-}}}\label{launchPad_8ino_a440c530b55261878002ddb81888a0f6f}
+\hypertarget{launchPad_8ino_a668c5ec668626e8f7ad9bfc2be75fa24}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad1\-Launch\-Port\-\_\-@{\-\_\-\-Pad1\-Launch\-Port\-\_\-}}
+\index{\-\_\-\-Pad1\-Launch\-Port\-\_\-@{\-\_\-\-Pad1\-Launch\-Port\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad1\-Launch\-Port\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad1\-Launch\-Port\-\_\-}}}\label{launchPad_8ino_a668c5ec668626e8f7ad9bfc2be75fa24}
+\hypertarget{launchPad_8ino_a5f31e10821954e78c91273154a01a9c1}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad2\-Launch\-Bit\-\_\-@{\-\_\-\-Pad2\-Launch\-Bit\-\_\-}}
+\index{\-\_\-\-Pad2\-Launch\-Bit\-\_\-@{\-\_\-\-Pad2\-Launch\-Bit\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad2\-Launch\-Bit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad2\-Launch\-Bit\-\_\-}}}\label{launchPad_8ino_a5f31e10821954e78c91273154a01a9c1}
+\hypertarget{launchPad_8ino_ac493d18a8ca788748c821e47f11bc23f}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-@{\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-}}
+\index{\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-@{\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad2\-Launch\-Bit\-Mode\-\_\-}}}\label{launchPad_8ino_ac493d18a8ca788748c821e47f11bc23f}
+\hypertarget{launchPad_8ino_af3068802cd6f1921c6f2926b3ea99689}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pad2\-Launch\-Port\-\_\-@{\-\_\-\-Pad2\-Launch\-Port\-\_\-}}
+\index{\-\_\-\-Pad2\-Launch\-Port\-\_\-@{\-\_\-\-Pad2\-Launch\-Port\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pad2\-Launch\-Port\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pad2\-Launch\-Port\-\_\-}}}\label{launchPad_8ino_af3068802cd6f1921c6f2926b3ea99689}
+\hypertarget{launchPad_8ino_a8dba5b7b5c1c1a33fdda248174d889bd}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pressure1\-Analog\-\_\-@{\-\_\-\-Pressure1\-Analog\-\_\-}}
+\index{\-\_\-\-Pressure1\-Analog\-\_\-@{\-\_\-\-Pressure1\-Analog\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pressure1\-Analog\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pressure1\-Analog\-\_\-}~1}}\label{launchPad_8ino_a8dba5b7b5c1c1a33fdda248174d889bd}
+
+
+\-Define the \-Analog \-Input \# for the pressure sensor in \-Chamber \#1. 
+
+\hypertarget{launchPad_8ino_a4ab75fa969597ccee16103613f86127b}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Pressure2\-Analog\-\_\-@{\-\_\-\-Pressure2\-Analog\-\_\-}}
+\index{\-\_\-\-Pressure2\-Analog\-\_\-@{\-\_\-\-Pressure2\-Analog\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Pressure2\-Analog\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Pressure2\-Analog\-\_\-}~2}}\label{launchPad_8ino_a4ab75fa969597ccee16103613f86127b}
+
+
+\-Define the \-Analog \-Input \# for the pressure sensor in \-Chamber \#2. 
+
+\hypertarget{launchPad_8ino_a9a8dc8e6e75e845a90d783b02b6be855}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-pulse\-\_\-halfwidth\-\_\-@{\-\_\-pulse\-\_\-halfwidth\-\_\-}}
+\index{\-\_\-pulse\-\_\-halfwidth\-\_\-@{\-\_\-pulse\-\_\-halfwidth\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-pulse\-\_\-halfwidth\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-pulse\-\_\-halfwidth\-\_\-}~100}}\label{launchPad_8ino_a9a8dc8e6e75e845a90d783b02b6be855}
+
+
+\-Define the 1/2 period of the pulse used to flash the \-L\-E\-D in the launch button. 
+
+\hypertarget{launchPad_8ino_a6aeae67497fe7befb28722f8356e5956}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Safety\-Led\-Bit\-\_\-@{\-\_\-\-Safety\-Led\-Bit\-\_\-}}
+\index{\-\_\-\-Safety\-Led\-Bit\-\_\-@{\-\_\-\-Safety\-Led\-Bit\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Safety\-Led\-Bit\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Safety\-Led\-Bit\-\_\-}~1}}\label{launchPad_8ino_a6aeae67497fe7befb28722f8356e5956}
+
+
+\-Define the \-Port \-Bit \# for the safety \-L\-E\-D. 
+
+\-In \-Port \-D, the \-Port \-Bit \# is equal to the \-Digital \-Pin \#. \-In \-Port \-B, the \-Port \-Bit \# is equal to the \-Digital \-Pin \# minus 8. \hypertarget{launchPad_8ino_a1a373dcba7ddfc401b86cb5ae2c3d0f6}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-@{\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-}}
+\index{\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-@{\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Safety\-Led\-Bit\-Mode\-\_\-}~1}}\label{launchPad_8ino_a1a373dcba7ddfc401b86cb5ae2c3d0f6}
+
+
+\-Define the \-Digital \-Input \# for the safety \-L\-E\-D. 
+
+\hypertarget{launchPad_8ino_a5be4de8c40301fb984c38e8aa1c505fe}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-\-Safety\-Led\-Port\-\_\-@{\-\_\-\-Safety\-Led\-Port\-\_\-}}
+\index{\-\_\-\-Safety\-Led\-Port\-\_\-@{\-\_\-\-Safety\-Led\-Port\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-\-Safety\-Led\-Port\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-\-Safety\-Led\-Port\-\_\-}~\-P\-O\-R\-T\-D}}\label{launchPad_8ino_a5be4de8c40301fb984c38e8aa1c505fe}
+\hypertarget{launchPad_8ino_a6b982ea9a4c912acbfd98bbd5072e258}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!\-\_\-zigbee\-\_\-timeout\-\_\-@{\-\_\-zigbee\-\_\-timeout\-\_\-}}
+\index{\-\_\-zigbee\-\_\-timeout\-\_\-@{\-\_\-zigbee\-\_\-timeout\-\_\-}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{\-\_\-zigbee\-\_\-timeout\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf \-\_\-zigbee\-\_\-timeout\-\_\-}~1000}}\label{launchPad_8ino_a6b982ea9a4c912acbfd98bbd5072e258}
+
+
+\-Define the timeout for the zigbee communications. 
+
+\-Error occurs if the time since the last communicaitons exceeds the timeout. 
+
+\subsection{\-Function \-Documentation}
+\hypertarget{launchPad_8ino_a6ff0831bdafcf179423ba9adaa1f5fad}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!blink\-Error\-Led@{blink\-Error\-Led}}
+\index{blink\-Error\-Led@{blink\-Error\-Led}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{blink\-Error\-Led}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf blink\-Error\-Led} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a6ff0831bdafcf179423ba9adaa1f5fad}
+
+
+\-Toggles the on/off state of the \-Error \-L\-E\-D bit. 
+
+\hypertarget{launchPad_8ino_aeba3f10803047fcba38d033c747a11c7}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!blink\-Safety\-Led@{blink\-Safety\-Led}}
+\index{blink\-Safety\-Led@{blink\-Safety\-Led}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{blink\-Safety\-Led}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf blink\-Safety\-Led} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_aeba3f10803047fcba38d033c747a11c7}
+
+
+\-Toggles the on/off state of the \-Error \-L\-E\-D bit. 
+
+\hypertarget{launchPad_8ino_a891f6d0bdccb9622acbd6ecf0d825a73}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!launch\-Rocket@{launch\-Rocket}}
+\index{launch\-Rocket@{launch\-Rocket}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{launch\-Rocket}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf launch\-Rocket} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a891f6d0bdccb9622acbd6ecf0d825a73}
+
+
+\-Launch the rocket(s). 
+
+\hypertarget{launchPad_8ino_a97912ba0e56e077f6841f7a8f9349df1}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!read\-Pressure@{read\-Pressure}}
+\index{read\-Pressure@{read\-Pressure}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{read\-Pressure}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf read\-Pressure} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a97912ba0e56e077f6841f7a8f9349df1}
+
+
+\-Reads the pressure as an uncalibrated value from the \-A\-D\-C. 
+
+\-The \-A\-D\-C value is stored for transmission via \-Zigbee. \hypertarget{launchPad_8ino_aa52415de65bdd171ce3eefcf2439d5bb}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!read\-Zigbee@{read\-Zigbee}}
+\index{read\-Zigbee@{read\-Zigbee}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{read\-Zigbee}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf read\-Zigbee} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_aa52415de65bdd171ce3eefcf2439d5bb}
+
+
+\-Checks if there is data waiting in the \-Zigbee. 
+
+\-If data is present, it reads the data and stores it in class variables and updates the \-L\-C\-D display acording to the data content. \hypertarget{launchPad_8ino_a846b4e1765d547fb0bc878b1ae00f1d1}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!set\-Error\-Led\-State@{set\-Error\-Led\-State}}
+\index{set\-Error\-Led\-State@{set\-Error\-Led\-State}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{set\-Error\-Led\-State}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf set\-Error\-Led\-State} (
+\begin{DoxyParamCaption}
+\item[{boolean}]{state}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a846b4e1765d547fb0bc878b1ae00f1d1}
+
+
+\-Supplies power to the \-Error \-L\-E\-D. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em state} & -\/boolean-\/ \-T\-R\-U\-E = turn on, \-F\-A\-L\-S\-E = turn off. \\
+\hline
+\end{DoxyParams}
+\hypertarget{launchPad_8ino_aa6ea37e78ab121d0e64b0184ed4a3e7c}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!set\-Safety\-Led\-State@{set\-Safety\-Led\-State}}
+\index{set\-Safety\-Led\-State@{set\-Safety\-Led\-State}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{set\-Safety\-Led\-State}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf set\-Safety\-Led\-State} (
+\begin{DoxyParamCaption}
+\item[{boolean}]{state}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_aa6ea37e78ab121d0e64b0184ed4a3e7c}
+
+
+\-Supplies power to the \-Safety \-L\-E\-D. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em state} & -\/boolean-\/ \-T\-R\-U\-E = turn on, \-F\-A\-L\-S\-E = turn off. \\
+\hline
+\end{DoxyParams}
+\hypertarget{launchPad_8ino_a389fed96244d8611aad3f0000e947be4}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!update\-Data@{update\-Data}}
+\index{update\-Data@{update\-Data}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{update\-Data}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf update\-Data} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a389fed96244d8611aad3f0000e947be4}
+
+
+\-Reads the pressure of the chambers and writes the data do the \-Launch\-Data\-Packet instance, checks for communication errors, reads \-Zigbee commands into the \-Launch\-Data\-Packet instance, controls the air compressor status, launches rockets, and sends the \-Launch\-Data\-Packet instance over \-Zigbee. 
+
+\-Arduino 'setup' function. \-The 'setup' function is excecuted only once each time the \-Atmel microcontroller is powered up and it executes after the arduino boot loader finishes executing. \par
+ \-It will initialize the digital \-I/\-O pins, the serial port, and the \-Zigbee.
+
+\-Arduino 'loop' function. \-The 'loop' function is excecuted over and over after the 'setup' function finishes executing. \par
+ \-It will call the read\-Panel function in an infinite loop.\hypertarget{launchPad_8ino_a9ad71d5a59d49ba8ccdb3d533e9324d1}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!write\-Zigbee\-Master@{write\-Zigbee\-Master}}
+\index{write\-Zigbee\-Master@{write\-Zigbee\-Master}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{write\-Zigbee\-Master}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf write\-Zigbee\-Master} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{launchPad_8ino_a9ad71d5a59d49ba8ccdb3d533e9324d1}
+
+
+\-Reads the current pressures, updates the data appropriate for the \-Launch \-Pad and sends a data packet to the \-Master \-Controller via \-Zigbee. 
+
+\-All variables are stored in the class instance. 
+
+\subsection{\-Variable \-Documentation}
+\hypertarget{launchPad_8ino_a2581ee7316bbd0b2c1f26d7892d9383b}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!data@{data}}
+\index{data@{data}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{data}]{\setlength{\rightskip}{0pt plus 5cm}\-Launch\-Data\-Packet {\bf data} = \-Launch\-Data\-Packet({\bf xbee})}}\label{launchPad_8ino_a2581ee7316bbd0b2c1f26d7892d9383b}
+
+
+\-Instance of the \-Launch\-Data\-Packet \-Class. 
+
+\-Create an instance of the \-Launch\-Data\-Packet \-Class. \-Only one instance created. \-This class decyphers all data being passed between the \-Master \-Panel, the \-Remote \-Panel, and the \-Launch \-Pad. \-The single instance of the \-Zigbee class is passed to the \-Launch\-Data\-Packet so the \-Master \-Panel can begin communicate with the \-Remote \-Panel and the \-Launch \-Pad. \hypertarget{launchPad_8ino_a5583bd11885b1c22517a2478981867ca}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!pulse@{pulse}}
+\index{pulse@{pulse}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{pulse}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf pulse} = \-F\-A\-L\-S\-E}}\label{launchPad_8ino_a5583bd11885b1c22517a2478981867ca}
+
+
+\-Track the on/off state of the launch button \-L\-E\-D when the \-L\-E\-D is flashing. 
+
+\hypertarget{launchPad_8ino_a7b1a52e134926e2cf15a07a282da0357}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!time\-Since\-Last\-Master\-Signal@{time\-Since\-Last\-Master\-Signal}}
+\index{time\-Since\-Last\-Master\-Signal@{time\-Since\-Last\-Master\-Signal}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{time\-Since\-Last\-Master\-Signal}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf time\-Since\-Last\-Master\-Signal} = 0}}\label{launchPad_8ino_a7b1a52e134926e2cf15a07a282da0357}
+
+
+\-Time since the last good \-Zigbee communication with the \-Master \-Panel. 
+
+\-Used to monitor a timeout error. \hypertarget{launchPad_8ino_af8d9d76d18b6aee4b209d4f3b9f2d8d3}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!time\-Since\-Last\-Pulse@{time\-Since\-Last\-Pulse}}
+\index{time\-Since\-Last\-Pulse@{time\-Since\-Last\-Pulse}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{time\-Since\-Last\-Pulse}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf time\-Since\-Last\-Pulse} = 0}}\label{launchPad_8ino_af8d9d76d18b6aee4b209d4f3b9f2d8d3}
+
+
+\-Time since the last toggle of the \-L\-E\-D on/off status. 
+
+\-Used to control the flashing of the \-L\-E\-D. \hypertarget{launchPad_8ino_af8ca6213dcf51fb6a3a9453c59099449}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!was\-Rocket\-Launched@{was\-Rocket\-Launched}}
+\index{was\-Rocket\-Launched@{was\-Rocket\-Launched}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{was\-Rocket\-Launched}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf was\-Rocket\-Launched} = false}}\label{launchPad_8ino_af8ca6213dcf51fb6a3a9453c59099449}
+
+
+\-Was a \-Rocket \-Launch \-Command given in the last \-Zigbee communications received. 
+
+\-Used to debounce the \-Rocket \-Launch \-Command. \hypertarget{launchPad_8ino_a18bbd7dece9ef587254b08710426fd17}{\index{launch\-Pad.\-ino@{launch\-Pad.\-ino}!xbee@{xbee}}
+\index{xbee@{xbee}!launchPad.ino@{launch\-Pad.\-ino}}
+\subsubsection[{xbee}]{\setlength{\rightskip}{0pt plus 5cm}\-X\-Bee {\bf xbee} = \-X\-Bee()}}\label{launchPad_8ino_a18bbd7dece9ef587254b08710426fd17}
+
+
+\-Instance of the \-Zigbee \-Class. 
+
+\-Only one instance created. \-It is used to control/perform handshakes and other communications with the other \-Zigbee devices in the \-Zigbee wireless network. 
